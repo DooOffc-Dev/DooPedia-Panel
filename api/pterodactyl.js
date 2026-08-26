@@ -28,6 +28,64 @@ export default async function handler(req, res) {
         return result;
     }
 
+    // ===================== HELPER: Ambil Port Available dari Panel =====================
+    async function getAvailablePort() {
+        const allocations = await pterodactylRequest('allocations');
+        
+        if (allocations.data && allocations.data.length > 0) {
+            const availablePorts = allocations.data
+                .filter(a => {
+                    const port = a.attributes.port;
+                    return port >= 4000 && port <= 4999 && !a.attributes.assigned;
+                })
+                .map(a => a.attributes.port);
+            
+            if (availablePorts.length > 0) {
+                const randomIndex = Math.floor(Math.random() * availablePorts.length);
+                return availablePorts[randomIndex];
+            }
+        }
+        
+        return await createNewPort();
+    }
+
+    // ===================== HELPER: Buat Port Baru 4000-4999 =====================
+    async function createNewPort() {
+        const nodes = await pterodactylRequest('nodes');
+        
+        if (!nodes.data || nodes.data.length === 0) {
+            throw new Error('No nodes available');
+        }
+        
+        const nodeId = nodes.data[0].attributes.id;
+        
+        let port;
+        let allocated = false;
+        let attempts = 0;
+        
+        while (!allocated && attempts < 10) {
+            port = Math.floor(Math.random() * (4999 - 4000 + 1)) + 4000;
+            attempts++;
+            
+            try {
+                const newAllocation = await pterodactylRequest('allocations', 'POST', {
+                    node_id: nodeId,
+                    ip: '0.0.0.0',
+                    port: port
+                });
+                
+                if (newAllocation.attributes) {
+                    allocated = true;
+                    return port;
+                }
+            } catch (e) {
+                console.error('Port allocation failed, trying again:', e);
+            }
+        }
+        
+        throw new Error('Could not allocate port');
+    }
+
     switch (action) {
         case 'createServer':
             try {
@@ -51,7 +109,10 @@ export default async function handler(req, res) {
                     userId = newUser.attributes.id;
                 }
 
-                // Buat server
+                // Ambil port available
+                const port = await getAvailablePort();
+
+                // Buat server dengan port random 4000-4999
                 const serverPayload = {
                     name: name,
                     user: userId,
@@ -73,7 +134,7 @@ export default async function handler(req, res) {
                     },
                     allocation: { default: 1 },
                     environment: {
-                        SERVER_PORT: '25565',
+                        SERVER_PORT: port,
                         STARTUP: 'npm start'
                     }
                 };
@@ -85,7 +146,8 @@ export default async function handler(req, res) {
                     data: {
                         serverId: server.attributes.id,
                         name: server.attributes.name,
-                        panelUrl: PANEL_DOMAIN
+                        panelUrl: PANEL_DOMAIN,
+                        port: port
                     }
                 });
             } catch (error) {
