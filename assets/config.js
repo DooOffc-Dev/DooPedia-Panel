@@ -1,10 +1,10 @@
 // ===================== PUBLIC CONFIG (TANPA API KEY) =====================
 const PUBLIC_CONFIG = {
-    panelDomain: "https://doopedia.omdhanmemek.my.id",   // Domain panel dari config
+    panelDomain: "https://doopediaa.omdhanmemek.my.id",   // Domain panel dari config
     qrisPhotoUrl: "https://www.gobox.my.id/file/UfOqNqD9H6tz.png",
     merchantName: "DooPedia Store",
     expiryMinutes: 30,
-    telegramBotUsername: "DOO_STORE"
+    telegramBotUsername: "sup_doopedia_bot"
 };
 
 // ===================== HARGA RAM =====================
