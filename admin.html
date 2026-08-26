@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DooPedia - Admin Panel</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="rot/logo.png">
+    <link rel="apple-touch-icon" href="rot/logo.png">
+    
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    
+    <!-- Broadcast Bar -->
+    <div id="broadcastBar" class="broadcast-bar">
+        <span id="broadcastMessage">Selamat datang di Admin Panel!</span>
+        <button class="close-broadcast" onclick="closeBroadcast()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="rot/logo.png" alt="DooPedia" class="navbar-logo spin-logo">
+                    <span class="text-xl font-bold text-white">Doo<span class="gradient-text">Pedia</span> Admin</span>
+                </a>
+                
+                <a href="index.html" class="btn-secondary text-sm px-4 py-2">
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Admin Content -->
+    <div class="pt-28 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold mb-8">Dashboard <span class="gradient-text">Admin</span></h1>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold gradient-text font-mono">12</div>
+                    <div class="text-sm text-gray-400 mt-2">Total Orders</div>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold gradient-text font-mono">8</div>
+                    <div class="text-sm text-gray-400 mt-2">Server Aktif</div>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold gradient-text font-mono">3</div>
+                    <div class="text-sm text-gray-400 mt-2">Pending</div>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold gradient-text font-mono">1</div>
+                    <div class="text-sm text-gray-400 mt-2">Dibatalkan</div>
+                </div>
+            </div>
+            
+            <!-- Tabel Order -->
+            <div class="card p-6">
+                <h2 class="text-xl font-bold mb-6">Daftar Order</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b border-[#1e1e1e]">
+                                <th class="py-3 px-4">Order ID</th>
+                                <th class="py-3 px-4">Server</th>
+                                <th class="py-3 px-4">Paket</th>
+                                <th class="py-3 px-4">Harga</th>
+                                <th class="py-3 px-4">Status</th>
+                                <th class="py-3 px-4">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Data order akan diisi via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Broadcast Manager -->
+            <div class="card p-6 mt-8">
+                <h2 class="text-xl font-bold mb-4">Kirim Broadcast</h2>
+                
+                <div class="flex gap-4">
+                    <input type="text" id="broadcastInput" placeholder="Tulis pesan broadcast..." 
+                        class="flex-1 bg-[#0d0d0d] border border-[#1e1e1e] rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition">
+                    <button onclick="sendBroadcast()" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Kirim
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script src="assets/config.js"></script>
+    
+    <script>
+        // ===================== BROADCAST =====================
+        function sendBroadcast() {
+            const message = document.getElementById('broadcastInput').value;
+            
+            if (!message) {
+                alert('Tulis pesan dulu bro!');
+                return;
+            }
+            
+            fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'setBroadcast', data: { message } })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Broadcast terkirim!');
+                    document.getElementById('broadcastInput').value = '';
+                    
+                    document.getElementById('broadcastMessage').textContent = message;
+                    document.getElementById('broadcastBar').classList.add('active');
+                }
+            })
+            .catch(() => {
+                alert('Gagal mengirim broadcast.');
+            });
+        }
+        
+        function closeBroadcast() {
+            document.getElementById('broadcastBar').classList.remove('active');
+        }
+        
+        // ===================== LOAD ORDERS =====================
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('doopedia_orders') || '[]');
+            
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '';
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="py-4 text-center text-gray-400">Belum ada order</td></tr>';
+                return;
+            }
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.className = 'border-b border-[#1e1e1e] hover:bg-[#1a1a1a] transition';
+                
+                const statusClass = order.status === 'confirmed' ? 'text-green-400' : 
+                                    order.status === 'cancelled' ? 'text-red-400' : 
+                                    'text-yellow-400';
+                
+                row.innerHTML = `
+                    <td class="py-3 px-4 font-mono">${order.orderId}</td>
+                    <td class="py-3 px-4">${order.serverName || '-'}</td>
+                    <td class="py-3 px-4">${order.ramLabel || '-'}</td>
+                    <td class="py-3 px-4 font-mono">${order.priceLabel || '-'}</td>
+                    <td class="py-3 px-4 ${statusClass}">${order.status || 'pending'}</td>
+                    <td class="py-3 px-4">
+                        <button onclick="confirmOrder('${order.orderId}')" class="btn-primary text-xs px-3 py-1">Confirm</button>
+                        <button onclick="rejectOrder('${order.orderId}')" class="btn-secondary text-xs px-3 py-1 ml-2">Reject</button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function confirmOrder(orderId) {
+            let orders = JSON.parse(localStorage.getItem('doopedia_orders') || '[]');
+            const order = orders.find(o => o.orderId === orderId);
+            
+            if (!order) return;
+            
+            order.status = 'confirmed';
+            localStorage.setItem('doopedia_orders', JSON.stringify(orders));
+            
+            fetch('/api/telegram', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'notifyOwner', data: { message: `Order ${orderId} dikonfirmasi. Server sedang dibuat.` } })
+            });
+            
+            loadOrders();
+            alert('Order dikonfirmasi! Server akan dibuat otomatis.');
+        }
+        
+        function rejectOrder(orderId) {
+            let orders = JSON.parse(localStorage.getItem('doopedia_orders') || '[]');
+            const order = orders.find(o => o.orderId === orderId);
+            
+            if (!order) return;
+            
+            order.status = 'cancelled';
+            localStorage.setItem('doopedia_orders', JSON.stringify(orders));
+            
+            fetch('/api/telegram', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'notifyOwner', data: { message: `Order ${orderId} ditolak. Pembayaran tidak valid.` } })
+            });
+            
+            loadOrders();
+            alert('Order ditolak!');
+        }
+        
+        // Inisialisasi
+        loadOrders();
+        
+        // Cek broadcast tiap 10 detik
+        setInterval(() => {
+            fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'getBroadcast' })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.data.message) {
+                    document.getElementById('broadcastMessage').textContent = data.data.message;
+                    document.getElementById('broadcastBar').classList.add('active');
+                }
+            })
+            .catch(() => {});
+        }, 10000);
+    </script>
+</body>
+</html>

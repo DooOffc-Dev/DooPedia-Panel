@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DooPedia - Panel Pterodactyl Hostinger</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="rot/logo.png">
+    <link rel="apple-touch-icon" href="rot/logo.png">
+    
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    
+    <!-- Broadcast Bar -->
+    <div id="broadcastBar" class="broadcast-bar">
+        <span id="broadcastMessage">Selamat datang di DooPedia!</span>
+        <button class="close-broadcast" onclick="closeBroadcast()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="rot/logo.png" alt="DooPedia" class="navbar-logo spin-logo">
+                    <span class="text-xl font-bold text-white">Doo<span class="gradient-text">Pedia</span></span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#pricing" class="nav-link">Harga</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 mb-6">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-green-300 text-sm font-medium">Panel Pterodactyl </span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                Panel Pterodactyl
+                <br>
+                <span class="gradient-text">Murah & Cepat</span>
+            </h1>
+            
+            <p class="text-lg text-gray-400 max-w-xl mx-auto mb-8">
+                Mulai dari Rp 2.500/bulan. Performa tinggi, setup otomatis dalam 30 detik.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section id="pricing" class="pb-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title">Pilih <span class="gradient-text">RAM</span> Kamu</h2>
+            <p class="section-subtitle">Harga transparan, tanpa biaya tersembunyi</p>
+            
+            <div class="pricing-grid">
+                <!-- RAM 1 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">1 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 2.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">50%</span>
+                        <span>Disk</span><span class="font-mono">5 GB</span>
+                    </div>
+                    <a href="order.html?ram=1" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 2 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">2 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 3.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">75%</span>
+                        <span>Disk</span><span class="font-mono">10 GB</span>
+                    </div>
+                    <a href="order.html?ram=2" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 3 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">3 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 4.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">100%</span>
+                        <span>Disk</span><span class="font-mono">15 GB</span>
+                    </div>
+                    <a href="order.html?ram=3" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 4 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">4 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 5.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">125%</span>
+                        <span>Disk</span><span class="font-mono">20 GB</span>
+                    </div>
+                    <a href="order.html?ram=4" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 5 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">5 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 6.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">150%</span>
+                        <span>Disk</span><span class="font-mono">25 GB</span>
+                    </div>
+                    <a href="order.html?ram=5" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 6 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">6 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 7.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">175%</span>
+                        <span>Disk</span><span class="font-mono">30 GB</span>
+                    </div>
+                    <a href="order.html?ram=6" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 7 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">7 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 8.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">200%</span>
+                        <span>Disk</span><span class="font-mono">35 GB</span>
+                    </div>
+                    <a href="order.html?ram=7" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 8 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">8 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 9.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">225%</span>
+                        <span>Disk</span><span class="font-mono">40 GB</span>
+                    </div>
+                    <a href="order.html?ram=8" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 9 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">9 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 12.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">250%</span>
+                        <span>Disk</span><span class="font-mono">45 GB</span>
+                    </div>
+                    <a href="order.html?ram=9" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM 10 GB -->
+                <div class="pricing-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold">10 GB</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 13.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">275%</span>
+                        <span>Disk</span><span class="font-mono">50 GB</span>
+                    </div>
+                    <a href="order.html?ram=10" class="btn-select">Pilih</a>
+                </div>
+                
+                <!-- RAM UNLI -->
+                <div class="pricing-card featured">
+                    <div class="featured-badge">BEST</div>
+                    <div class="flex justify-between items-center mb-2 mt-2">
+                        <span class="font-bold">UNLIMITED</span>
+                        <span class="text-xs font-mono bg-green-500/10 text-green-400 px-2 py-1 rounded">RAM</span>
+                    </div>
+                    <div class="text-2xl font-bold gradient-text font-mono mb-1">Rp 15.500</div>
+                    <div class="text-xs text-gray-500 mb-3">/ bulan</div>
+                    <div class="flex justify-between text-xs text-gray-400 mb-4">
+                        <span>CPU</span><span class="font-mono">300%</span>
+                        <span>Disk</span><span class="font-mono">100 GB</span>
+                    </div>
+                    <a href="order.html?ram=unli" class="btn-select">Pilih</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section id="faq" class="pb-16">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-center mb-8">Pertanyaan <span class="gradient-text">Umum</span></h2>
+            
+            <div class="space-y-3">
+                <div class="card p-5">
+                    <button class="w-full flex justify-between items-center text-left faq-toggle">
+                        <span class="font-semibold">Bagaimana cara pembayaran?</span>
+                        <i class="fas fa-chevron-down transition"></i>
+                    </button>
+                    <div class="mt-3 text-gray-400 text-sm hidden">
+                        Kami menerima QRIS. Setelah bayar, kamu tinggal konfirmasi ke bot dan admin akan verifikasi otomatis.
+                    </div>
+                </div>
+                
+                <div class="card p-5">
+                    <button class="w-full flex justify-between items-center text-left faq-toggle">
+                        <span class="font-semibold">Berapa lama proses setup?</span>
+                        <i class="fas fa-chevron-down transition"></i>
+                    </button>
+                    <div class="mt-3 text-gray-400 text-sm hidden">
+                        Setelah pembayaran dikonfirmasi, server dibuat otomatis dalam 30 detik.
+                    </div>
+                </div>
+                
+                <div class="card p-5">
+                    <button class="w-full flex justify-between items-center text-left faq-toggle">
+                        <span class="font-semibold">Apakah bisa upgrade RAM?</span>
+                        <i class="fas fa-chevron-down transition"></i>
+                    </button>
+                    <div class="mt-3 text-gray-400 text-sm hidden">
+                        Bisa! Lu bisa upgrade kapan aja tanpa downtime.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="border-t border-[#1e1e1e] py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500 text-sm">© 2024 DooPedia. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Exit Popup -->
+    <div id="exitPopup" class="exit-popup-overlay">
+        <div class="exit-popup">
+            <button class="close-popup" onclick="closeExitPopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <img src="rot/dp2.png" alt="DooPedia Logo" class="popup-logo spin-slow">
+            
+            <h3>Tunggu Dulu!</h3>
+            <p>
+                Kamu yakin mau keluar?<br>
+                Jangan lewatkan promo server panel murah mulai Rp 2.500/bulan!
+            </p>
+            
+            <div class="popup-actions">
+                <a href="#pricing" class="btn-primary" onclick="closeExitPopup()">
+                    <i class="fas fa-arrow-right"></i>
+                    Order Sekarang
+                </a>
+                <button class="btn-secondary" onclick="closeExitPopup()">
+                    <i class="fas fa-arrow-left"></i>
+                    Kembali ke Web
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/config.js"></script>
+    
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // Exit Popup Logic
+        let exitPopupShown = false;
+        
+        function showExitPopup() {
+            const popup = document.getElementById('exitPopup');
+            if (!exitPopupShown) {
+                popup.classList.add('active');
+                exitPopupShown = true;
+            }
+        }
+        
+        function closeExitPopup() {
+            const popup = document.getElementById('exitPopup');
+            popup.classList.remove('active');
+        }
+        
+        document.addEventListener('mouseout', function(event) {
+            if (!event.relatedTarget && event.clientY <= 0) {
+                showExitPopup();
+            }
+        });
+        
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                setTimeout(showExitPopup, 100);
+            }
+        });
+    </script>
+</body>
+</html>
